@@ -23,4 +23,57 @@ var questions = document.querySelector("#questions");
 var choices = document.querySelector(".choices");
 var endScreen = document.querySelector("#end-screen");
 
+var score = 0;
+var currentQuestion = 0;
+var timeLeft = 30; // time in seconds
+var intervalId;
+
+// functions and pseudocodes for timer and buttons for answers
+
+function startTimer() {
+  intervalId = setInterval(function() {
+    timeLeft--;
+    
+    if (timeLeft === 0) {
+      clearInterval(intervalId);
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function displayQuestion() {
+ 
+  for (let i = 0; i < choices.length; i++) {
+    let choiceBtn = document.createElement("button");
+    choiceBtn.innerHTML = choices[i];
+    choiceBtn.setAttribute("value", choices[i]);
+    choiceBtn.onclick = checkAnswer;
+    document.getElementById("choices").appendChild(choiceBtn);
+  }
+}
+
+function checkAnswer() {
+  let userChoice = this.value;
+  if (userChoice === questions[currentQuestion].answer) {
+    alert("Correct!");
+    score++;
+  } else {
+    alert("Wrong! The correct answer is: " + questions[currentQuestion].answer);
+  }
+  currentQuestion++;
+  if (currentQuestion === questions.length) {
+    endQuiz();
+  } else {
+    displayQuestion();
+  }
+}
+
+function endQuiz() {
+  clearInterval(intervalId);
+  alert("Time's up! Your final score is " + score + "/" + questions.length);
+}
+
+startTimer();
+displayQuestion();
+
 
