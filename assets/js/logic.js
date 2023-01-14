@@ -22,19 +22,20 @@ var start = document.querySelector("#start");
 var questions = document.querySelector("#questions");
 var choices = document.querySelector(".choices");
 var endScreen = document.querySelector("#end-screen");
+var title = document.querySelector("#question-title")
 
 var score = 0;
 var currentQuestion = 0;
-var timeLeft = 30; // time in seconds
+var timer = 30; // time in seconds
 var intervalId;
 
 // functions and pseudocodes for timer and buttons for answers
 
 function startTimer() {
   intervalId = setInterval(function() {
-    timeLeft--;
+    timer--;
     
-    if (timeLeft === 0) {
+    if (timer === 0) {
       clearInterval(intervalId);
       endQuiz();
     }
@@ -42,26 +43,29 @@ function startTimer() {
 }
 
 function displayQuestion() {
- 
-  for (let i = 0; i < choices.length; i++) {
+ start.setAttribute("class","hide");
+ choices.innerHTML = "";
+ questions.setAttribute("class","start");
+ title.innerHTML = arrayQuestions[currentQuestion].title
+  for (let i = 0; i < arrayQuestions[currentQuestion].choices.length; i++) {
     let choiceBtn = document.createElement("button");
-    choiceBtn.innerHTML = choices[i];
+    choiceBtn.innerHTML = arrayQuestions[currentQuestion].choices[i];
     choiceBtn.setAttribute("value", choices[i]);
     choiceBtn.onclick = checkAnswer;
-    document.getElementById("choices").appendChild(choiceBtn);
+    choices.appendChild(choiceBtn);
   }
 }
 
 function checkAnswer() {
   let userChoice = this.value;
-  if (userChoice === questions[currentQuestion].answer) {
+  if (userChoice === arrayQuestions[currentQuestion].correctAnswer) {
     alert("Correct!");
     score++;
   } else {
-    alert("Wrong! The correct answer is: " + questions[currentQuestion].answer);
+    alert("Wrong! The correct answer is: " + arrayQuestions[currentQuestion].correctAnswer);
   }
   currentQuestion++;
-  if (currentQuestion === questions.length) {
+  if (currentQuestion === arrayQuestions.length) {
     endQuiz();
   } else {
     displayQuestion();
@@ -70,10 +74,9 @@ function checkAnswer() {
 
 function endQuiz() {
   clearInterval(intervalId);
-  alert("Time's up! Your final score is " + score + "/" + questions.length);
+  alert("Time's up! Your final score is " + score + "/" + arrayQuestions.length);
 }
 
-startTimer();
-displayQuestion();
+start.addEventListener("click", displayQuestion, startTimer);
 
 

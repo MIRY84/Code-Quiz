@@ -1,4 +1,4 @@
-var  questions = [
+var arrayQuestions = [
   
     {
       title : "Commonly used data types DO NOT include:",
@@ -14,7 +14,7 @@ var  questions = [
 
     {
       title: "Arrays in JavaScript can be used to store ________.",
-      choices : ("numbers and strings", "other arrays", "booleans", "all of the above"),
+      choices : ["numbers and strings", "other arrays", "booleans", "all of the above"],
       correctAnswer: "all the above"
     },
 
