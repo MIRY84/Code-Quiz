@@ -16,31 +16,42 @@
 // creating variables
 
 var scores = document.querySelector(".scores");
-var timer = document.querySelector(".timer");
 var wrapper = document.querySelector(".wrapper");
-var start = document.querySelector("#start");
+var timer = document.querySelector("#start");
 var questions = document.querySelector("#questions");
 var choices = document.querySelector(".choices");
 var endScreen = document.querySelector("#end-screen");
-var title = document.querySelector("#question-title")
+var title = document.querySelector("#question-title");
+var time = document.querySelector("#time");
+var feedback = document.querySelector("#feedback");
 
-var score = 0;
+var scores = 0;
 var currentQuestion = 0;
-var timer = 30; // time in seconds
+var secondsLeft = 60;
+// Holds interval time
+var holdInterval = 0;
+// Holds penalty time
+var penalty = 10;
 var intervalId;
 
 // functions and pseudocodes for timer and buttons for answers
 
-function startTimer() {
-  intervalId = setInterval(function() {
-    timer--;
-    
-    if (timer === 0) {
-      clearInterval(intervalId);
-      endQuiz();
-    }
-  }, 1000);
-}
+timer.addEventListener("click", function () {
+  // We are checking zero because its originally set to zero
+  if (holdInterval === 0) {
+      holdInterval = setInterval(function () {
+          secondsLeft--;
+          time.textContent = + secondsLeft;
+
+          if (secondsLeft <= 0) {
+              clearInterval(holdInterval);
+              endQuiz();
+              time.textContent = "Time's up!";
+          }
+      }, 1000);
+  }
+  displayQuestion();
+});
 
 function displayQuestion() {
  start.setAttribute("class","hide");
@@ -61,12 +72,15 @@ function displayQuestion() {
 }
 
 function checkAnswer() {
+  feedback.setAttribute("class", "show");
   let userChoice = this.value;
   if (userChoice === arrayQuestions[currentQuestion].correctAnswer) {
-    alert("Correct!");
-    score++;
+    feedback.textContent = "Correct!";
+    scores++;
   } else {
-    alert("Wrong! The correct answer is: " + arrayQuestions[currentQuestion].correctAnswer);
+    feedback.textContent = "Wrong! The correct answer is: " + arrayQuestions[currentQuestion].correctAnswer;
+    scores--;
+    penalty;
   }
   currentQuestion++;
   if (currentQuestion === arrayQuestions.length) {
@@ -81,6 +95,6 @@ function endQuiz() {
   alert("Time's up! Your final score is " + score + "/" + arrayQuestions.length);
 }
 
-start.addEventListener("click", displayQuestion, startTimer);
+start.addEventListener("click", displayQuestion,);
 
 
