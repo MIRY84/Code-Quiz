@@ -44,6 +44,10 @@ function startTimer() {
 
 function displayQuestion() {
  start.setAttribute("class","hide");
+ var p = document.querySelector('p');
+ var h1el = document.querySelector('h1');
+ h1el.setAttribute("class", "hide");
+ p.setAttribute("class", "hide");
  choices.innerHTML = "";
  questions.setAttribute("class","start");
  title.innerHTML = arrayQuestions[currentQuestion].title
@@ -68,9 +72,9 @@ function checkAnswer() {
   if (currentQuestion === arrayQuestions.length) {
     endQuiz();
   } else {
-    displayQuestion();
+    displayQuestion()
   }
-}
+};
 
 function endQuiz() {
   clearInterval(intervalId);
