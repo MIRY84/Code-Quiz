@@ -15,7 +15,7 @@ var arrayQuestions = [
     {
       title: "Arrays in JavaScript can be used to store ________.",
       choices : ["numbers and strings", "other arrays", "booleans", "all of the above"],
-      correctAnswer: "all the above"
+      correctAnswer: "all of the above"
     },
 
     {

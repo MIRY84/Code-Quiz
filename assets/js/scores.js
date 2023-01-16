@@ -1,0 +1,1 @@
+// get scores from localstorage

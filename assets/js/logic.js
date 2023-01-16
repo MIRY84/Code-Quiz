@@ -24,6 +24,7 @@ var endScreen = document.querySelector("#end-screen");
 var title = document.querySelector("#question-title");
 var time = document.querySelector("#time");
 var feedback = document.querySelector("#feedback");
+var finalScore = document.querySelector("#final-score");
 
 var scores = 0;
 var currentQuestion = 0;
@@ -65,7 +66,7 @@ function displayQuestion() {
   for (let i = 0; i < arrayQuestions[currentQuestion].choices.length; i++) {
     let choiceBtn = document.createElement("button");
     choiceBtn.innerHTML = arrayQuestions[currentQuestion].choices[i];
-    choiceBtn.setAttribute("value", choices[i]);
+    choiceBtn.setAttribute("value", arrayQuestions[currentQuestion].choices[i]);
     choiceBtn.onclick = checkAnswer;
     choices.appendChild(choiceBtn);
   }
@@ -79,8 +80,7 @@ function checkAnswer() {
     scores++;
   } else {
     feedback.textContent = "Wrong! The correct answer is: " + arrayQuestions[currentQuestion].correctAnswer;
-    scores--;
-    penalty;
+    secondsLeft = secondsLeft - penalty;
   }
   currentQuestion++;
   if (currentQuestion === arrayQuestions.length) {
@@ -91,9 +91,16 @@ function checkAnswer() {
 };
 
 function endQuiz() {
-  clearInterval(intervalId);
-  alert("Time's up! Your final score is " + score + "/" + arrayQuestions.length);
+  clearInterval(intervalId);  
+  finalScore.textContent = scores;
+  questions.setAttribute("class","hide");
+  endScreen.setAttribute("class","start");
 }
+
+//add listener to the submit button then...
+  // add score and name to the localstorage  
+  // call score window
+
 
 start.addEventListener("click", displayQuestion,);
 
