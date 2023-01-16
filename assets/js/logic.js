@@ -44,10 +44,10 @@ timer.addEventListener("click", function () {
           secondsLeft--;
           time.textContent = + secondsLeft;
 
-          if (secondsLeft <= 0) {
+          if (secondsLeft <= 0 || currentQuestion === arrayQuestions.length) {
               clearInterval(holdInterval);
               endQuiz();
-              time.textContent = "Time's up!";
+              time.textContent = "0";
           }
       }, 1000);
   }
@@ -95,6 +95,7 @@ function endQuiz() {
   finalScore.textContent = scores;
   questions.setAttribute("class","hide");
   endScreen.setAttribute("class","start");
+  feedback.setAttribute("class", "hide");
 }
 
 //add listener to the submit button then...
