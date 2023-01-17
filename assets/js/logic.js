@@ -101,6 +101,43 @@ function endQuiz() {
 //add listener to the submit button then...
   // add score and name to the localstorage  
   // call score window
+ 
+  submit.addEventListener("click", function () {
+    var initials = document.querySelector("#initials");
+    correctAnswer =[];
+
+    // checking if initials are entered correctly
+
+    if (initials === null) {
+
+        alert("No value entered!");
+
+        // declaring the finalscores!!
+
+    } else {
+        var finalScores = {
+            initials: initials.value,
+            score: scores,
+        }
+        console.log(finalScores);
+        var allScores = localStorage.getItem("allScores");
+        if (allScores === null) {
+            allScores = [];
+        } else {
+            allScores = JSON.parse(allScores);
+        }
+        allScores.push(finalScores);
+        var newScore = JSON.stringify(allScores);
+        localStorage.setItem("allScores", newScore);
+        // it goes  to final page highscores
+        window.location.replace("./highscores.html");
+    }
+});
+
+
+
+
+
 
 
 start.addEventListener("click", displayQuestion,);
