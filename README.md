@@ -41,3 +41,6 @@ N/A
 ## LICENSE
 MIT
 
+## TEST
+Please follow this link for the live application and good luck!
+https://miry84.github.io/Code-Quiz/index.html
